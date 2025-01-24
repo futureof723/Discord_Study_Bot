@@ -6,8 +6,8 @@ from config import TOKEN
 # Set up the bot
 intents = discord.Intents.default()
 intents.message_content = True
-#intents.members = True
-bot = commands.Bot(command_prefix="!", intents=intents,help_command=None)  # Disable the default help command
+# intents.members = True
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)  # Disable the default help command
 
 # Store user data and tasks
 user_data = {}  # {user_id: {"xp": xp_value, "study_time": time_in_channel, "tasks": [task_ids]}}
@@ -28,6 +28,7 @@ def add_xp(user_id, xp):
 def calculate_xp_from_study_time(study_time):
     # Assume 1 XP per minute
     return study_time
+
 
 # Command to start and stop studying
 @bot.command()
@@ -57,13 +58,13 @@ async def study(ctx):
                 user_data[user_id]["xp"] += 1  # Award 1 XP per minute
 
                 # Embed for study progress
-                #embed_progress = discord.Embed(
+                # embed_progress = discord.Embed(
                 #    title=f"🚀 Study Progress for {ctx.author.name} 🛸",
                 #    description=f"Yeehaw! You've studied for {user_data[user_id]['study_time']} minutes in deep space!",
                 #    color=discord.Color.blue()
-                #)
-                #embed_progress.add_field(name="Total XP", value=f"{user_data[user_id]['xp']} XP (That's some good space brainpower!)", inline=False)
-                #await ctx.send(embed=embed_progress)
+                # )
+                # embed_progress.add_field(name="Total XP", value=f"{user_data[user_id]['xp']} XP (That's some good space brainpower!)", inline=False)
+                # await ctx.send(embed=embed_progress)
 
                 # Every 30 minutes, remind the user to take a break
                 if user_data[user_id]["study_time"] % 30 == 0:
@@ -89,7 +90,6 @@ async def study(ctx):
         user_data[user_id]["study_task"].cancel()
         user_data[user_id]["study_time"] = 0  # Reset the study timer
         user_data[user_id]["study_task"] = None  # Reset the task reference
-
 
 
 # Command to create a new task
@@ -174,6 +174,7 @@ async def create_task(ctx, name: str = None, difficulty: str = None):
     embed_success.set_footer(text="Time to get to work, partner! 🤠")
 
     await ctx.send(embed=embed_success)
+
 
 # Command to list tasks
 @bot.command()
@@ -272,6 +273,7 @@ async def complete_task(ctx, task_id: str):
     embed_success.set_thumbnail(url=ctx.author.avatar.url)  # Optional: Add user avatar as thumbnail
     await ctx.send(embed=embed_success)
 
+
 @bot.command()
 async def remove_task(ctx, task_id: str):
     """Remove a task."""
@@ -348,6 +350,7 @@ async def remove_task(ctx, task_id: str):
         )
         await ctx.send(embed=embed_timeout)
 
+
 @bot.command()
 async def leaderboard(ctx):
     """Show the leaderboard of users with their XP."""
@@ -381,6 +384,7 @@ async def leaderboard(ctx):
 
     # Send the embed
     await ctx.send(embed=embed)
+
 
 # Testing
 @bot.command()
@@ -497,7 +501,6 @@ async def info(ctx):
     embed.add_field(name="Developer", value="Your Space Cowboy 🐄", inline=True)
     embed.set_footer(text="CowBot is here to help you study and earn XP, space cadet!")
     await ctx.send(embed=embed)
-
 
 
 @bot.command()
