@@ -315,8 +315,8 @@ async def remove_task(ctx, task_id: str):
     if task_id not in tasks_data:
         embed_not_found = discord.Embed(
             title="🚫 Task Not Found",
-            description=f"Task with ID {task_id} doesn't exist. Please check the task ID and try "
-                        f"again.",
+            description=f"""Task with ID {task_id} doesn't exist. Please check the task ID and try
+    again.""",
             color=discord.Color.orange()
         )
         await ctx.send(embed=embed_not_found)
