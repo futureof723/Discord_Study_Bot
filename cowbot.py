@@ -325,9 +325,10 @@ async def remove_task(ctx, task_id: str):
     # Ask for confirmation before deleting the task
     embed_confirm = discord.Embed(
         title="🛑 Task Removal Confirmation",
-        description=f"Are you sure you want to remove task **{tasks_data[task_id]['task_nam'
-                                                                                  'e']}** (ID: {
-        task_id})? Type `yes` to confirm.",
+        description=(
+            f"Are you sure you want to remove task **{tasks_data[task_id]['task_name']}** "
+            f"(ID: {task_id})? Type `yes` to confirm."
+        ),
         color=discord.Color.gold()
     )
     await ctx.send(embed=embed_confirm)
