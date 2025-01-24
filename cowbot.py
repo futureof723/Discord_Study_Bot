@@ -272,8 +272,6 @@ async def complete_task(ctx, task_id: str):
     embed_success.set_thumbnail(url=ctx.author.avatar.url)  # Optional: Add user avatar as thumbnail
     await ctx.send(embed=embed_success)
 
-
-# Command to remove a task
 @bot.command()
 async def remove_task(ctx, task_id: str):
     """Remove a task."""
@@ -316,14 +314,23 @@ async def remove_task(ctx, task_id: str):
         user_msg = await bot.wait_for('message', check=check, timeout=30.0)
 
         if user_msg.content.lower() == "yes":
-            # Remove the task from tasks_data
-            del tasks_data[task_id]
-            embed_removed = discord.Embed(
-                title="✅ Task Removed",
-                description=f"Task **{tasks_data[task_id]['task_name']}** (ID: {task_id}) has been successfully removed.",
-                color=discord.Color.green()
-            )
-            await ctx.send(embed=embed_removed)
+            # Check if the task still exists before removing
+            if task_id in tasks_data:
+                # Remove the task from tasks_data
+                del tasks_data[task_id]
+                embed_removed = discord.Embed(
+                    title="✅ Task Removed",
+                    description=f"Task **{tasks_data.get(task_id, {}).get('task_name', 'Unknown')}** (ID: {task_id}) has been successfully removed.",
+                    color=discord.Color.green()
+                )
+                await ctx.send(embed=embed_removed)
+            else:
+                embed_error = discord.Embed(
+                    title="⚠️ Task Already Removed",
+                    description=f"Task **{task_id}** was already removed or doesn't exist.",
+                    color=discord.Color.red()
+                )
+                await ctx.send(embed=embed_error)
         else:
             embed_cancelled = discord.Embed(
                 title="🛑 Task Removal Cancelled",
@@ -340,7 +347,6 @@ async def remove_task(ctx, task_id: str):
             color=discord.Color.red()
         )
         await ctx.send(embed=embed_timeout)
-
 
 @bot.command()
 async def leaderboard(ctx):
