@@ -1,3 +1,5 @@
+import time
+from datetime import timedelta
 import asyncio
 import discord
 from discord.ext import commands
@@ -449,10 +451,6 @@ async def test(ctx):
 
     # Send the embed with test results
     await ctx.send(embed=embed)
-
-
-import time
-from datetime import timedelta
 
 # Store bot's start time
 bot_start_time = time.time()
