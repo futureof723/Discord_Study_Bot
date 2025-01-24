@@ -25,9 +25,9 @@ def add_xp(user_id, xp):
 
 
 # Helper function to calculate XP from study time
-def calculate_xp_from_study_time(time):
+def calculate_xp_from_study_time(study_time):
     # Assume 1 XP per minute
-    return time
+    return study_time
 
 # Command to start and stop studying
 @bot.command()
