@@ -347,11 +347,12 @@ async def remove_task(ctx, task_id: str):
                 del tasks_data[task_id]
                 embed_removed = discord.Embed(
                     title="✅ Task Removed",
-                    description=(f"Task **"
-                                f"{tasks_data.get(task_id, {}).get('task_name', 'Unknow'
-                                                                                'n')}** (ID: {
-                                task_id}) has been successfully removed."),
+                    description=(
+                        f"Task **{tasks_data.get(task_id, {}).get('task_name', 'Unknown')}** "
+                        f"(ID: {task_id}) has been successfully removed."
+                    ),
                     color=discord.Color.green()
+
                 )
                 await ctx.send(embed=embed_removed)
             else:
